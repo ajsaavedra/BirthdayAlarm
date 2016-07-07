@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //Create a FriendCollection
+        let friendCollection = FriendCollection()
+        
+        //Access the FriendsViewController and set its friend collection
+        let friendsController = window!.rootViewController as! FriendsViewController
+        friendsController.friendCollection = friendCollection
+        
         return true
     }
 
