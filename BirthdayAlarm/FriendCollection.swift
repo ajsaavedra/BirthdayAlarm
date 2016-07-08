@@ -16,10 +16,4 @@ class FriendCollection {
         allFriends.append(newFriend)
         return newFriend
     }
-    
-    init() {
-        for _ in 0..<5 {
-            addFriend()
-        }
-    }
 }

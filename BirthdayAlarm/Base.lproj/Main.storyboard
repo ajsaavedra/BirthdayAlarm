@@ -13,19 +13,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="0Xb-Z1-gCS">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qr1-2k-fh1">
+                                    <rect key="frame" x="8" y="15" width="46" height="30"/>
+                                    <state key="normal" title="Edit"/>
+                                    <connections>
+                                        <action selector="toggleEditingMode:" destination="OmY-Le-ONT" eventType="touchUpInside" id="MBT-0y-HQP"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdf-HD-bkD">
+                                    <rect key="frame" x="546" y="15" width="46" height="30"/>
+                                    <state key="normal" title="Add"/>
+                                    <connections>
+                                        <action selector="addNewReminder:" destination="OmY-Le-ONT" eventType="touchUpInside" id="JEh-3O-kqm"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="qr1-2k-fh1" firstAttribute="leading" secondItem="0Xb-Z1-gCS" secondAttribute="leading" constant="8" id="0eh-Be-g1G"/>
+                                <constraint firstItem="Vdf-HD-bkD" firstAttribute="leading" secondItem="qr1-2k-fh1" secondAttribute="trailing" constant="8" id="BX6-sp-XJP"/>
+                                <constraint firstItem="Vdf-HD-bkD" firstAttribute="centerY" secondItem="0Xb-Z1-gCS" secondAttribute="centerY" id="KdB-gH-GcC"/>
+                                <constraint firstItem="Vdf-HD-bkD" firstAttribute="width" secondItem="qr1-2k-fh1" secondAttribute="width" id="agt-kR-ZCB"/>
+                                <constraint firstAttribute="trailing" secondItem="Vdf-HD-bkD" secondAttribute="trailing" constant="8" id="eT4-4I-qEY"/>
+                                <constraint firstItem="qr1-2k-fh1" firstAttribute="centerY" secondItem="0Xb-Z1-gCS" secondAttribute="centerY" id="qdl-92-Er6"/>
+                            </constraints>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="efe-lg-TkF" detailTextLabel="m3p-fU-jYp" style="IBUITableViewCellStyleValue1" id="0BD-u3-gei">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" alpha="0.10000000000000001" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="efe-lg-TkF" detailTextLabel="m3p-fU-jYp" style="IBUITableViewCellStyleValue1" id="0BD-u3-gei">
+                                <rect key="frame" x="0.0" y="88" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0BD-u3-gei" id="t6O-r2-Uyx">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="efe-lg-TkF">
-                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="efe-lg-TkF">
+                                            <rect key="frame" x="15" y="12" width="30" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m3p-fU-jYp">
@@ -36,6 +65,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>

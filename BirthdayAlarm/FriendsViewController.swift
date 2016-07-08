@@ -10,7 +10,26 @@ import UIKit
 
 class FriendsViewController: UITableViewController {
     var friendCollection: FriendCollection!
-    
+
+    @IBAction func addNewReminder(sender: AnyObject) {
+        let newReminder = friendCollection.addFriend()
+
+        if let index = friendCollection.allFriends.indexOf(newReminder) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
+
+    @IBAction func toggleEditingMode(sender: AnyObject) {
+        if editing {
+            sender.setTitle("Edit", forState: .Normal)
+            setEditing(false, animated: true)
+        } else {
+            sender.setTitle("Done", forState: .Normal)
+            setEditing(true, animated: true)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +65,8 @@ class FriendsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        cell.textLabel?.backgroundColor = UIColor.clearColor()
+        cell.detailTextLabel?.backgroundColor = UIColor.clearColor()
     }
 }
