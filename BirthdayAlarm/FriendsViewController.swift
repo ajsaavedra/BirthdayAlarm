@@ -69,4 +69,13 @@ class FriendsViewController: UITableViewController {
         cell.textLabel?.backgroundColor = UIColor.clearColor()
         cell.detailTextLabel?.backgroundColor = UIColor.clearColor()
     }
+
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let reminder = friendCollection.allFriends[indexPath.row]
+            friendCollection.removeReminder(reminder)
+
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
 }

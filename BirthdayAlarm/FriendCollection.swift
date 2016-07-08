@@ -16,4 +16,10 @@ class FriendCollection {
         allFriends.append(newFriend)
         return newFriend
     }
+
+    func removeReminder(friend: Friend) {
+        if let index = allFriends.indexOf(friend) {
+            allFriends.removeAtIndex(index)
+        }
+    }
 }
