@@ -22,4 +22,14 @@ class FriendCollection {
             allFriends.removeAtIndex(index)
         }
     }
+
+    func moveReminderAtIndex(fromIndex: Int, toIndex: Int) {
+        if fromIndex == toIndex {
+            return
+        }
+
+        let movedReminder = allFriends[fromIndex]
+        allFriends.removeAtIndex(fromIndex)
+        allFriends.insert(movedReminder, atIndex: toIndex)
+    }
 }

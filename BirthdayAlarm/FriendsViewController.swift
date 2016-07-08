@@ -78,4 +78,8 @@ class FriendsViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
+
+    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        friendCollection.moveReminderAtIndex(sourceIndexPath.row, toIndex: destinationIndexPath.row)
+    }
 }
