@@ -38,29 +38,31 @@ class FriendsViewController: UITableViewController {
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tableView.reloadData()
 
         let backgroundImage = UIImage(named: "gift.png")
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
-        
+
         tableView.tableFooterView = UIView(frame: CGRectZero)
         imageView.contentMode = .ScaleAspectFit
     }
-    
+
     override func tableView(tableView: UITableView, numberOfRowsInSection: Int) -> Int {
         return friendCollection.allFriends.count
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UITableViewCell", forIndexPath: indexPath)
 
         let friend = friendCollection.allFriends[indexPath.row]
 
         cell.textLabel?.text = friend.firstName + " " + friend.lastName
-        cell.detailTextLabel?.text = "\(friend.birthDay)/\(friend.birthMonth)/\(friend.birthYear)"
+        cell.detailTextLabel?.text = "\(friend.birthMonth)/\(friend.birthDay)/\(friend.birthYear)"
         return cell
     }
 
@@ -73,21 +75,21 @@ class FriendsViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let alarm = friendCollection.allFriends[indexPath.row]
-            
+
             let title = "Delete \(alarm.firstName) \(alarm.lastName)?"
             let message = "Are you sure you want to delete this birthday alarm?"
             let ac = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet)
-            
+
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             ac.addAction(cancelAction)
-            
+
             let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: {(action) -> Void in
                 self.friendCollection.removeReminder(alarm)
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             })
-            
+
             ac.addAction(deleteAction)
-            
+
             presentViewController(ac, animated: true, completion: nil)
         }
     }

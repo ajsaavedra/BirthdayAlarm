@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let friendCollection = FriendCollection()
         
         //Access the FriendsViewController and set its friend collection
-        let friendsController = window!.rootViewController as! FriendsViewController
+        let navController = window!.rootViewController as! UINavigationController
+        let friendsController = navController.topViewController as! FriendsViewController
         friendsController.friendCollection = friendCollection
         
         return true
