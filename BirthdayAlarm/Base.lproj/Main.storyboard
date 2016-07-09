@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Friends View Controller-->
@@ -67,6 +68,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="ez3-Pd-7CG" kind="show" identifier="ShowAlarm" id="0AR-Ph-njo"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -78,6 +82,97 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kk9-qd-yMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="323" y="443"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="J3p-OB-g8o">
+            <objects>
+                <viewController id="ez3-Pd-7CG" customClass="DetailViewController" customModule="BirthdayAlarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jXc-uo-d2u"/>
+                        <viewControllerLayoutGuide type="bottom" id="hMP-S2-Wo3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DsD-2c-rfg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ABp-lf-v6p">
+                                <rect key="frame" x="20" y="28" width="560" height="564"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wYg-Dk-LE0">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8w9-F0-4LS">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ip8-Es-nGf">
+                                                <rect key="frame" x="91" y="0.0" width="469" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DMG-nP-I6m">
+                                        <rect key="frame" x="0.0" y="30" width="560" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sa-h5-ZwW">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ajD-xe-SXu">
+                                                <rect key="frame" x="91" y="0.0" width="469" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6wu-3s-NN9">
+                                        <rect key="frame" x="0.0" y="60" width="560" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmd-aP-1gQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fq7-1I-bD1">
+                                                <rect key="frame" x="91" y="0.0" width="469" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="EZ0-Yi-DPV">
+                                        <rect key="frame" x="0.0" y="90" width="560" height="474"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ajD-xe-SXu" firstAttribute="leading" secondItem="fq7-1I-bD1" secondAttribute="leading" id="Dd7-TD-T1g"/>
+                                    <constraint firstItem="Ip8-Es-nGf" firstAttribute="leading" secondItem="ajD-xe-SXu" secondAttribute="leading" id="H5V-gL-ubb"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hMP-S2-Wo3" firstAttribute="top" secondItem="ABp-lf-v6p" secondAttribute="bottom" constant="8" id="91O-Ne-yk6"/>
+                            <constraint firstItem="ABp-lf-v6p" firstAttribute="leading" secondItem="DsD-2c-rfg" secondAttribute="leadingMargin" id="Z8I-DB-iHa"/>
+                            <constraint firstItem="ABp-lf-v6p" firstAttribute="top" secondItem="jXc-uo-d2u" secondAttribute="bottom" constant="8" id="glN-TA-CbR"/>
+                            <constraint firstItem="ABp-lf-v6p" firstAttribute="trailing" secondItem="DsD-2c-rfg" secondAttribute="trailingMargin" id="jfc-qV-OLF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="birthdayField" destination="fq7-1I-bD1" id="iKr-OK-MS0"/>
+                        <outlet property="firstNameField" destination="Ip8-Es-nGf" id="ZoM-2q-buY"/>
+                        <outlet property="lastNameField" destination="ajD-xe-SXu" id="NJb-yn-X3z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CJ7-Zs-D45" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="998" y="443"/>
         </scene>
     </scenes>
 </document>
