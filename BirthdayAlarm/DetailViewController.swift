@@ -9,19 +9,20 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
     @IBOutlet var firstNameField: UITextField!
     @IBOutlet var lastNameField: UITextField!
     @IBOutlet var birthdayField: UITextField!
+
     @IBAction func backgroundTapped(sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
+
     var friend: Friend! {
         didSet {
             navigationItem.title = friend.firstName
         }
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -29,7 +30,7 @@ class DetailViewController: UIViewController {
         lastNameField.text = friend.lastName
         birthdayField.text =  "\(friend.birthMonth)/\(friend.birthDay)/\(friend.birthYear)"
     }
-    
+
     @IBAction func editBirthday(sender: UITextField) {
         let datePickerView = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.Date
@@ -46,15 +47,15 @@ class DetailViewController: UIViewController {
 
         birthdayField.text = dateFormatter.stringFromDate(sender.date)
     }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         view.endEditing(true)
         friend.firstName = firstNameField.text ?? ""
         friend.lastName = lastNameField.text ?? ""
     }
-    
+
     func textFieldShouldReturn(textfield: UITextField) -> Bool {
         textfield.resignFirstResponder()
         return true
