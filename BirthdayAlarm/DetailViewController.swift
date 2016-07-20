@@ -8,15 +8,30 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate,
+        UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet var firstNameField: UITextField!
     @IBOutlet var lastNameField: UITextField!
     @IBOutlet var birthdayField: UITextField!
-
+    @IBOutlet var imageView: UIImageView!
+    
     @IBAction func backgroundTapped(sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
 
+    @IBAction func takePicture(sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            imagePicker.sourceType = .Camera
+        } else {
+            imagePicker.sourceType = .PhotoLibrary
+        }
+        imagePicker.delegate = self
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
     var friend: Friend! {
         didSet {
             navigationItem.title = friend.firstName
@@ -59,5 +74,10 @@ class DetailViewController: UIViewController {
     func textFieldShouldReturn(textfield: UITextField) -> Bool {
         textfield.resignFirstResponder()
         return true
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imageView.image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
