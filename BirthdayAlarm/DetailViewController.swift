@@ -24,6 +24,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
 
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             imagePicker.sourceType = .Camera
+            imagePicker.allowsEditing = true
         } else {
             imagePicker.sourceType = .PhotoLibrary
         }
@@ -97,7 +98,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
         imageStore.setImage(image, forKey: friend.friendKey)
         imageView.image = image
         dismissViewControllerAnimated(true, completion: nil)
