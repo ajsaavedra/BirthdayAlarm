@@ -10,6 +10,7 @@ import UIKit
 
 class FriendsViewController: UITableViewController {
     var friendCollection: FriendCollection!
+    var imageStore: ImageStore!
 
     @IBAction func addNewReminder(sender: AnyObject) {
         let newReminder = friendCollection.addFriend()
@@ -80,6 +81,7 @@ class FriendsViewController: UITableViewController {
 
             let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: {(action) -> Void in
                 self.friendCollection.removeReminder(alarm)
+                self.imageStore.deleteImageForKey(alarm.friendKey)
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             })
 
@@ -99,6 +101,7 @@ class FriendsViewController: UITableViewController {
                 let alarm = friendCollection.allFriends[row]
                 let detailViewController = segue.destinationViewController as! DetailViewController
                 detailViewController.friend = alarm
+                detailViewController.imageStore = imageStore
             }
         }
     }

@@ -14,6 +14,7 @@ class Friend: NSObject {
     var birthDay: Int
     var birthMonth: Int
     var birthYear: Int
+    let friendKey: String
     
     init(firstName: String, lastName: String, day: Int, month: Int, year: Int) {
         self.firstName = firstName
@@ -21,7 +22,8 @@ class Friend: NSObject {
         self.birthDay = day
         self.birthMonth = month
         self.birthYear = year
-        
+        self.friendKey = NSUUID().UUIDString
+
         super.init()
     }
     

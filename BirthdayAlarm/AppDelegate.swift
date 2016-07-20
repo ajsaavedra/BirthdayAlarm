@@ -19,12 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Create a FriendCollection
         let friendCollection = FriendCollection()
-        
-        //Access the FriendsViewController and set its friend collection
+
+        //Create the ImageStore
+        let imageStore = ImageStore()
+
+        //Access the FriendsViewController and set its friend collection and image store
         let navController = window!.rootViewController as! UINavigationController
         let friendsController = navController.topViewController as! FriendsViewController
         friendsController.friendCollection = friendCollection
-        
+        friendsController.imageStore = imageStore
+
         return true
     }
 
