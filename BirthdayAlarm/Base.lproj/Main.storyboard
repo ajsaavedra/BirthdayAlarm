@@ -154,6 +154,12 @@
                                             <action selector="takePicture:" destination="ez3-Pd-7CG" id="aJb-h6-vDz"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="zu8-dO-seD"/>
+                                    <barButtonItem systemItem="trash" id="GQn-WJ-TD6">
+                                        <connections>
+                                            <action selector="deletePicture:" destination="ez3-Pd-7CG" id="Pjx-Zr-gCy"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

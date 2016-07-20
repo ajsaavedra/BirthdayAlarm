@@ -31,7 +31,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
 
         presentViewController(imagePicker, animated: true, completion: nil)
     }
-    
+
+    @IBAction func deletePicture(sender: UIBarButtonItem) {
+        imageStore.deleteImageForKey(friend.friendKey)
+        imageView.image = nil
+    }
+
     var friend: Friend! {
         didSet {
             navigationItem.title = friend.firstName
@@ -46,7 +51,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         firstNameField.text = friend.firstName
         lastNameField.text = friend.lastName
         birthdayField.text =  "\(friend.birthMonth)/\(friend.birthDay)/\(friend.birthYear)"
-        
+
         imageView.image = imageStore.imageForKey(friend.friendKey)
     }
 
