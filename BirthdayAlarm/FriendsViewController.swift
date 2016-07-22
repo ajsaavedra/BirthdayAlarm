@@ -100,6 +100,7 @@ class FriendsViewController: UITableViewController {
             if let row = tableView.indexPathForSelectedRow?.row {
                 let alarm = friendCollection.allFriends[row]
                 detailViewController.friend = alarm
+                detailViewController.friendImage = imageStore.imageForKey(alarm.friendKey)
             }
         }
     }
@@ -107,11 +108,14 @@ class FriendsViewController: UITableViewController {
     @IBAction func unwindToAlarmList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? DetailViewController,
             alarm = sourceViewController.friend {
-            let newIndexPath = NSIndexPath(forRow: friendCollection.allFriends.count, inSection: 0)
-            if DetailViewController().friendDoesNotExist(alarm.firstName, lastName: alarm.lastName) {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                friendCollection.allFriends[selectedIndexPath.row] = alarm
+                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+            } else {
+                let newIndexPath = NSIndexPath(forRow: friendCollection.allFriends.count, inSection: 0)
                 friendCollection.allFriends.append(alarm)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
             }
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }
 }

@@ -38,6 +38,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         if friend != nil {
             imageStore.deleteImageForKey(friend.friendKey)
         }
+        friendImage = nil
         imageView.image = nil
     }
 
@@ -64,7 +65,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         }
 
         let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain,
-                                                           target: self, action: #selector(DetailViewController.saveNewFriend))
+                                                           target: self, action: #selector(DetailViewController.saveFriendDetails))
         self.navigationItem.rightBarButtonItem = saveButton
     }
 
@@ -89,19 +90,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         super.viewWillDisappear(animated)
 
         view.endEditing(true)
-        if friend != nil {
-            updateFriendInformation()
-        }
     }
 
-    func saveNewFriend() {
-        if friendDoesNotExist(firstNameField.text!, lastName: lastNameField.text!) {
-            let first = firstNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
-            let last = lastNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
+    func saveFriendDetails() {
+        let first = firstNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
+        let last = lastNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
+        let birthdayInfo = birthdayField.text ?? ""
 
-            let birthdayInfo = birthdayField.text ?? ""
-
-            if !first.isEmpty && !birthdayInfo.isEmpty {
+        if !first.isEmpty && !birthdayInfo.isEmpty {
+            if friend != nil && FriendCollection().allFriends.contains(friend) {
+                updateFriendInformation()
+            } else {
                 let birthday = birthdayInfo.componentsSeparatedByString("/")
 
                 let month = Int(birthday[0]) ?? 1
@@ -109,21 +108,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
                 let year = Int(birthday[2]) ?? 1970
 
                 friend = FriendCollection().addFriend(first, lName: last, d: day, m: month, y: year)
+                if friendImage != nil {
+                    imageStore.setImage(friendImage, forKey: friend.friendKey)
+                }
             }
         }
         self.performSegueWithIdentifier("unwindToTable", sender: self)
     }
     
-    func friendDoesNotExist(firstName: String, lastName: String) -> Bool {
-        for friend in FriendCollection().allFriends {
-            if (friend.firstName == firstName
-                && friend.lastName == lastName) {
-                return false
-            }
-        }
-        return true
-    }
-
     func updateFriendInformation() {
         friend.firstName = firstNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
         friend.lastName = lastNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
