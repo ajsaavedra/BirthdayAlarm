@@ -50,9 +50,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Birthday Alarm" id="8hb-Hi-3BB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="e7z-k9-zlb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VgW-OP-XYF">
                             <connections>
-                                <action selector="addNewReminder:" destination="OmY-Le-ONT" id="QN5-0e-TNU"/>
+                                <segue destination="ez3-Pd-7CG" kind="show" identifier="AddAlarm" id="osc-i6-dx9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -183,9 +183,11 @@
                         <outlet property="firstNameField" destination="Ip8-Es-nGf" id="ZoM-2q-buY"/>
                         <outlet property="imageView" destination="EZ0-Yi-DPV" id="gYj-uu-nGe"/>
                         <outlet property="lastNameField" destination="ajD-xe-SXu" id="NJb-yn-X3z"/>
+                        <segue destination="kgY-9m-US0" kind="unwind" identifier="unwindToTable" unwindAction="unwindToAlarmList:" id="T58-kN-CPQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJ7-Zs-D45" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="kgY-9m-US0" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="QwJ-d8-HH4">
                     <connections>
                         <action selector="backgroundTapped:" destination="ez3-Pd-7CG" id="Syw-uT-P9k"/>
@@ -213,4 +215,7 @@
             <point key="canvasLocation" x="471" y="443"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="osc-i6-dx9"/>
+    </inferredMetricsTieBreakers>
 </document>

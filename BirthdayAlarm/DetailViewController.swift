@@ -14,6 +14,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
     @IBOutlet var lastNameField: UITextField!
     @IBOutlet var birthdayField: UITextField!
     @IBOutlet var imageView: UIImageView!
+    var friendImage: UIImage!
 
     @IBAction func backgroundTapped(sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -34,7 +35,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
     }
 
     @IBAction func deletePicture(sender: UIBarButtonItem) {
-        imageStore.deleteImageForKey(friend.friendKey)
+        if friend != nil {
+            imageStore.deleteImageForKey(friend.friendKey)
+        }
         imageView.image = nil
     }
 
@@ -49,11 +52,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        firstNameField.text = friend.firstName
-        lastNameField.text = friend.lastName
-        birthdayField.text =  "\(friend.birthMonth)/\(friend.birthDay)/\(friend.birthYear)"
+        if let reminder = friend {
+            firstNameField.text = reminder.firstName
+            lastNameField.text = reminder.lastName
+            birthdayField.text =  "\(reminder.birthMonth)/\(reminder.birthDay)/\(reminder.birthYear)"
+            imageView.image = imageStore.imageForKey(reminder.friendKey)
+        } else {
+            firstNameField.text = ""
+            lastNameField.text = ""
+            birthdayField.text =  ""
+        }
 
-        imageView.image = imageStore.imageForKey(friend.friendKey)
+        let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain,
+                                                           target: self, action: #selector(DetailViewController.saveNewFriend))
+        self.navigationItem.rightBarButtonItem = saveButton
     }
 
     @IBAction func editBirthday(sender: UITextField) {
@@ -77,19 +89,53 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         super.viewWillDisappear(animated)
 
         view.endEditing(true)
-        updateFriendInformation()
+        if friend != nil {
+            updateFriendInformation()
+        }
+    }
+
+    func saveNewFriend() {
+        if friendDoesNotExist(firstNameField.text!, lastName: lastNameField.text!) {
+            let first = firstNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
+            let last = lastNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
+
+            let birthdayInfo = birthdayField.text ?? ""
+
+            if !first.isEmpty && !birthdayInfo.isEmpty {
+                let birthday = birthdayInfo.componentsSeparatedByString("/")
+
+                let month = Int(birthday[0]) ?? 1
+                let day = Int(birthday[1]) ?? 1
+                let year = Int(birthday[2]) ?? 1970
+
+                friend = FriendCollection().addFriend(first, lName: last, d: day, m: month, y: year)
+            }
+        }
+        self.performSegueWithIdentifier("unwindToTable", sender: self)
+    }
+    
+    func friendDoesNotExist(firstName: String, lastName: String) -> Bool {
+        for friend in FriendCollection().allFriends {
+            if (friend.firstName == firstName
+                && friend.lastName == lastName) {
+                return false
+            }
+        }
+        return true
     }
 
     func updateFriendInformation() {
-        friend.firstName = firstNameField.text ?? ""
-        friend.lastName = lastNameField.text ?? ""
+        friend.firstName = firstNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
+        friend.lastName = lastNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
         let birthdayInfo = birthdayField.text ?? ""
-
         let birthday = birthdayInfo.componentsSeparatedByString("/")
 
         friend.birthMonth = Int(birthday[0]) ?? 1
         friend.birthDay = Int(birthday[1]) ?? 1
         friend.birthYear = Int(birthday[2]) ?? 1970
+        if friendImage != nil {
+            imageStore.setImage(friendImage, forKey: friend.friendKey)
+        }
     }
 
     func textFieldShouldReturn(textfield: UITextField) -> Bool {
@@ -98,9 +144,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        let image = info[UIImagePickerControllerEditedImage] as! UIImage
-        imageStore.setImage(image, forKey: friend.friendKey)
-        imageView.image = image
+        friendImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        if friend != nil {
+            imageStore.setImage(friendImage, forKey: friend.friendKey)
+        }
+        imageView.image = friendImage
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

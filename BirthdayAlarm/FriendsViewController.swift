@@ -12,15 +12,13 @@ class FriendsViewController: UITableViewController {
     var friendCollection: FriendCollection!
     var imageStore: ImageStore!
 
-    @IBAction func addNewReminder(sender: AnyObject) {
-        let newReminder = friendCollection.addFriend()
-
-        if let index = friendCollection.allFriends.indexOf(newReminder) {
+    func addNewRow(friend: Friend) {
+        if let index = FriendCollection().allFriends.indexOf(friend) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -96,13 +94,24 @@ class FriendsViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let detailViewController = segue.destinationViewController as! DetailViewController
+        detailViewController.imageStore = imageStore
         if segue.identifier == "ShowAlarm" {
             if let row = tableView.indexPathForSelectedRow?.row {
                 let alarm = friendCollection.allFriends[row]
-                let detailViewController = segue.destinationViewController as! DetailViewController
                 detailViewController.friend = alarm
-                detailViewController.imageStore = imageStore
             }
+        }
+    }
+
+    @IBAction func unwindToAlarmList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? DetailViewController,
+            alarm = sourceViewController.friend {
+            let newIndexPath = NSIndexPath(forRow: friendCollection.allFriends.count, inSection: 0)
+            if DetailViewController().friendDoesNotExist(alarm.firstName, lastName: alarm.lastName) {
+                friendCollection.allFriends.append(alarm)
+            }
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }
 }

@@ -10,9 +10,9 @@ import UIKit
 
 class FriendCollection {
     var allFriends = [Friend]()
-    
-    func addFriend() -> Friend {
-        let newFriend = Friend(random: true)
+
+    func addFriend(fName: String, lName: String, d: Int, m: Int, y: Int) -> Friend {
+        let newFriend = Friend(firstName: fName, lastName: lName , day: d, month: m, year: y)
         allFriends.append(newFriend)
         return newFriend
     }
