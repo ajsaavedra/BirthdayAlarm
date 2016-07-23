@@ -134,13 +134,33 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5M5-DN-Zti">
+                                        <rect key="frame" x="0.0" y="90" width="560" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCQ-3L-38x">
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CJR-w2-3c1">
+                                                <rect key="frame" x="91" y="0.0" width="469" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="editAlarmDate:" destination="ez3-Pd-7CG" eventType="editingDidEnd" id="Yg1-ZD-ddE"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="EZ0-Yi-DPV">
-                                        <rect key="frame" x="0.0" y="90" width="560" height="386"/>
+                                        <rect key="frame" x="0.0" y="120" width="560" height="356"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ajD-xe-SXu" firstAttribute="leading" secondItem="fq7-1I-bD1" secondAttribute="leading" id="Dd7-TD-T1g"/>
                                     <constraint firstItem="Ip8-Es-nGf" firstAttribute="leading" secondItem="ajD-xe-SXu" secondAttribute="leading" id="H5V-gL-ubb"/>
+                                    <constraint firstItem="fq7-1I-bD1" firstAttribute="leading" secondItem="CJR-w2-3c1" secondAttribute="leading" id="pYb-ap-Ocf"/>
                                 </constraints>
                             </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1i-Nf-ZS3">
@@ -179,6 +199,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="alarmDateField" destination="CJR-w2-3c1" id="sNB-fp-1bY"/>
                         <outlet property="birthdayField" destination="fq7-1I-bD1" id="iKr-OK-MS0"/>
                         <outlet property="firstNameField" destination="Ip8-Es-nGf" id="ZoM-2q-buY"/>
                         <outlet property="imageView" destination="EZ0-Yi-DPV" id="gYj-uu-nGe"/>

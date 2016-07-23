@@ -27,7 +27,10 @@ class FriendsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 65
     }
@@ -78,6 +81,7 @@ class FriendsViewController: UITableViewController {
             ac.addAction(cancelAction)
 
             let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: {(action) -> Void in
+                alarm.deleteNotification()
                 self.friendCollection.removeReminder(alarm)
                 self.imageStore.deleteImageForKey(alarm.friendKey)
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -101,6 +105,7 @@ class FriendsViewController: UITableViewController {
                 let alarm = friendCollection.allFriends[row]
                 detailViewController.friend = alarm
                 detailViewController.friendImage = imageStore.imageForKey(alarm.friendKey)
+                detailViewController.alarmDate = alarm.alarmDate
             }
         }
     }
@@ -114,6 +119,7 @@ class FriendsViewController: UITableViewController {
             } else {
                 let newIndexPath = NSIndexPath(forRow: friendCollection.allFriends.count, inSection: 0)
                 friendCollection.allFriends.append(alarm)
+                alarm.setLocalNotification()
                 tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
             }
         }

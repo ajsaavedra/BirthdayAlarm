@@ -13,8 +13,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
     @IBOutlet var firstNameField: UITextField!
     @IBOutlet var lastNameField: UITextField!
     @IBOutlet var birthdayField: UITextField!
+    @IBOutlet var alarmDateField: UITextField!
     @IBOutlet var imageView: UIImageView!
     var friendImage: UIImage!
+    var alarmDate: NSDate!
 
     @IBAction func backgroundTapped(sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -58,6 +60,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
             lastNameField.text = reminder.lastName
             birthdayField.text =  "\(reminder.birthMonth)/\(reminder.birthDay)/\(reminder.birthYear)"
             imageView.image = imageStore.imageForKey(reminder.friendKey)
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            alarmDateField.text = dateFormatter.stringFromDate(reminder.alarmDate)
         } else {
             firstNameField.text = ""
             lastNameField.text = ""
@@ -77,6 +83,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         datePickerView.addTarget(self, action: #selector(datePickerValueChanged),
                                  forControlEvents: UIControlEvents.ValueChanged)
     }
+    
+    @IBAction func editAlarmDate(sender: UITextField) {
+        let datePickerView = UIDatePicker()
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        sender.inputView = datePickerView
+        
+        datePickerView.addTarget(self, action: #selector(alarmDateValueChanged),
+                                 forControlEvents: UIControlEvents.ValueChanged)
+    }
 
     func datePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()
@@ -84,6 +99,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
 
         birthdayField.text = dateFormatter.stringFromDate(sender.date)
+    }
+    
+    func alarmDateValueChanged(sender: UIDatePicker) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        
+        alarmDateField.text = dateFormatter.stringFromDate(sender.date)
+        alarmDate = sender.date
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -96,9 +120,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         let first = firstNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
         let last = lastNameField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) ?? ""
         let birthdayInfo = birthdayField.text ?? ""
+        let date = alarmDate ?? NSDate()
 
         if !first.isEmpty && !birthdayInfo.isEmpty {
-            if friend != nil && FriendCollection().allFriends.contains(friend) {
+            if friend != nil {
                 updateFriendInformation()
             } else {
                 let birthday = birthdayInfo.componentsSeparatedByString("/")
@@ -111,6 +136,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
                 if friendImage != nil {
                     imageStore.setImage(friendImage, forKey: friend.friendKey)
                 }
+                friend.setDateForAlarm(date)
             }
         }
         self.performSegueWithIdentifier("unwindToTable", sender: self)
@@ -128,6 +154,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate,
         if friendImage != nil {
             imageStore.setImage(friendImage, forKey: friend.friendKey)
         }
+        friend.editAlarmDate(alarmDate)
     }
 
     func textFieldShouldReturn(textfield: UITextField) -> Bool {
